@@ -1,0 +1,4 @@
+CREATE FUNCTION ndw_temp.trino_table_operator_test()
+RETURNS TABLE VARYING USING FUNCTION add_table_udf
+LANGUAGE C NO SQL PARAMETER STYLE SQLTABLE EXTERNAL
+NAME 'SP!/home/presto/add_table_udf.so!F!add_table_udf';
