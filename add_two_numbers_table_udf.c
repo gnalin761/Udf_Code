@@ -1,5 +1,12 @@
-#include "sqltypes_td.h"
 #include <string.h>
+
+typedef int INT;
+typedef char SQL_TEXT;
+typedef enum { FNC_INIT, FNC_ROW, FNC_END } FNC_Phase;
+
+void FNC_TblOptOut() {
+    // Stub for testing
+}
 
 void add_two_numbers_table_udf(
     FNC_Phase phase,
@@ -35,3 +42,4 @@ void add_two_numbers_table_udf(
         break;
     }
 }
+
