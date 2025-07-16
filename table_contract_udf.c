@@ -2,7 +2,6 @@
 #include <sqltypes_td.h>
 #include <string.h>
 
-extern "C" {
 
 // Contract Function
 void return_table_udf_contract(
@@ -47,4 +46,4 @@ void return_table_udf(
     strcpy(sqlstate, "00000");
 }
 
-}
+
