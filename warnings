@@ -1,0 +1,30 @@
+BTEQ -- Enter your SQL request or BTEQ command:
+
+CREATE FUNCTION syslib.presto_table_operator()
+RETURNS TABLE VARYING USING FUNCTION return_table_udf_contract
+LANGUAGE C NO SQL PARAMETER STYLE SQLTABLE EXTERNAL
+NAME 'SP!/home/presto/table_contract_udf.so!F!return_table_udf';
+CREATE FUNCTION syslib.presto_table_operator()
+RETURNS TABLE VARYING USING FUNCTION return_table_udf_contract
+LANGUAGE C NO SQL PARAMETER STYLE SQLTABLE EXTERNAL
+NAME 'SP!/home/presto/table_contract_udf.so!F!return_table_udf';
+*** Create function completed with error(s).
+*** Warning: 5603 Errors encountered in compiling UDF/XSP/UDM/UDT/JAR.
+*** Total elapsed time was 3 seconds.
+Errors/Warnings reported during compilation
+---------------------------------------------------------------------------
+/usr/bin/gcc -D_REENTRANT -D_LIBC_REENTRANT    -I/usr/tdbms/etc   -L/usr/td
+bms/lib -L/usr/tdbms/lib  -fpic -c Teradata_new_delete.cpp
+/usr/bin/gcc -D_REENTRANT -D_LIBC_REENTRANT    -I/usr/tdbms/etc   -L/usr/td
+bms/lib -L/usr/tdbms/lib   -fpic -c  pre_return_table_udf_contract.c
+/usr/bin/gcc -D_REENTRANT -D_LIBC_REENTRANT    -I/usr/tdbms/etc   -L/usr/td
+bms/lib -L/usr/tdbms/lib   -fpic -c  pre_return_table_udf.c
+/usr/bin/gcc -shared -fpic -Xlinker -rpath -Xlinker /usr/tdbms/lib  -Xlinke
+r -rpath -Xlinker /usr/tdbms/lib -Wl,--version-script=/var/opt/teradata/tdt
+emp/UDFTemp/03E9.30719.847324/UserUdf_versions.scr -D_REENTRANT -D_LIBC_REE
+NTRANT    -I/usr/tdbms/etc   -L/usr/tdbms/lib -L/usr/tdbms/lib  -o @FileLis
+t  -lapi  -ludflib  -lxsp  /home/presto/table_contract_udf.so  -ludf  -lm -
+ljil -lstdc++
+/var/opt/teradata/tdtemp/UDFTemp/03E9.30719.847324/libudf_03e9_1410.so: und
+efined symbol: return_table_udf_contract
+ 
