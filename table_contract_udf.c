@@ -4,7 +4,7 @@
 
 
 // Contract Function
-void starburst_teradata_contract(
+void return_table_udf_contract(
     SQL_TEXT result_name[128],
     SQL_TEXT result_type[128],
     char sqlstate[6],
