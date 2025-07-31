@@ -30,7 +30,9 @@ void ascii(void      * inputStr,
 
    buffersize = ASCII_ANYTYPES * sizeof(anytype_param_info_t);
    anytype_param_info_t * inputInfo = FNC_malloc(buffersize);
-   FNC_GetAnytypeParamInfo( buffersize, &numAnytypeParams,inputInfo);
+   FNC_GetAnyTypeParamInfo(buffersize, &numAnytypeParams, inputInfo);
+
+  
 
    if ( numAnytypeParams >= 2
       && inputInfo[0].paramIndex == 1
