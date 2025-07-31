@@ -1,12 +1,11 @@
 #define SQL_TEXT Latin_Text
-#include "sqltypes_td.h"
+#include <sqltypes_td.h>
 #define IsNull -1
 #define IsNotNull 0
 #define NUL '\0'
 #define ASCII_ANYTYPES 2
 
-/* This function returns the ASCII numeric value of the first character of the input string. 
-*/
+
 
 void ascii(void      * inputStr,
            void      * result,
@@ -53,11 +52,11 @@ void ascii(void      * inputStr,
             returnValue = (INTEGER)(latinInputStr[0]);
          }
       }
-      /* If the input is Unicode. */
+
       else if(inputInfo[0].charset == UNICODE_CT)
       {
          VARCHAR_UNICODE * unicodeInputStr = (VARCHAR_UNICODE *) inputStr;
-         /* If the string is empty */
+      
          if (*unicodeInputStr == NUL)
          {
             *resultIsNull = IsNull;
@@ -68,7 +67,7 @@ void ascii(void      * inputStr,
             returnValue = (INTEGER)(unicodeInputStr[0]);
          }
       }
-       /* Deal with the output. */
+      
       If (inputInfo[1].paramIndex == -1 && inputInfo[1].datatype == BYTEINT_DT)
       {
          * (BYTEINT *) result = (BYTEINT) returnValue;
@@ -83,17 +82,17 @@ void ascii(void      * inputStr,
       {
          * (INTEGER *) result = returnValue;
       }
-      else /* Error */
+      else 
       {
          strcpy(sqlstate, "22023");
          strcpy((char *) error_message, "Invalid result type.") ;
       }
    }
-   else /* Error */
+   else
    {
       strcpy(sqlstate, "22023");
       strcpy((char *) error_message, "Invalid input type.") ;
    }
-   /* Free memory */
+ 
    FNC_free(inputInfo);
 }
