@@ -1,4 +1,5 @@
 #define SQL_TEXT Latin_Text
+#include <string.h>
 #include <sqltypes_td.h>
 #define IsNull -1
 #define IsNotNull 0
@@ -20,7 +21,7 @@ void ascii(void      * inputStr,
    int buffersize;
    int returnValue;
 
-   /* Returns NULL given NULL */
+
    if (*inputStrIsNull == IsNull)
    {
       *resultIsNull = IsNull;
@@ -37,11 +38,11 @@ void ascii(void      * inputStr,
          || inputInfo[0].datatype == CHAR_DT)
       )
    {
-      /* If the input is latin. */
+
       if(inputInfo[0].charset == LATIN_CT)
       {
          VARCHAR_LATIN * latinInputStr = (VARCHAR_LATIN *) inputStr;
-         /* If the string is empty */
+        
          if (*latinInputStr == NUL)
          {
             *resultIsNull = IsNull;
