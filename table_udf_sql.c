@@ -1,0 +1,85 @@
+#define SQL_TEXT Latin_Text
+#define SQL_STATE_LENGTH 6
+#define ERROR_MESSAGE_LENGTH 257
+
+#include <sqltypes_td.h>
+#include <string.h>
+
+char tbuf[256];
+
+typedef struct {
+    int row;
+} local_ctx;
+
+void trace(char *input_string) {
+    void *argv[1];
+    int length[1];
+    argv[0] = input_string;
+    length[0] = strlen(input_string);
+    FNC_Trace_Write_DL(1, argv, length);
+}
+
+void hardcoded_sql_udf(
+    INTEGER *input,
+    VARCHAR_LATIN *result,
+    int *input_isnull,
+    int *result_isnull,
+    char sqlstate[SQL_STATE_LENGTH],
+    SQL_TEXT fncname[FNC_MAXNAMELEN],
+    SQL_TEXT sfncname[FNC_MAXNAMELEN],
+    SQL_TEXT errormsg[ERROR_MESSAGE_LENGTH]
+) {
+    FNC_Phase Phase;
+    local_ctx *ctx;
+
+    if (FNC_GetPhase(&Phase) != TBL_MODE_VARY) {
+        strcpy(sqlstate, "U0005");
+        strcpy((char *)errormsg, "Table function being called in unsupported mode.");
+        return;
+    }
+
+    switch (Phase) {
+        case TBL_PRE_INIT:
+            ctx = FNC_TblAllocCtx(sizeof(local_ctx));
+            trace("In Pre Init");
+            break;
+
+        case TBL_INIT:
+            ctx = FNC_TblGetCtx();
+            ctx->row = 0;
+            trace("In Init");
+            break;
+
+        case TBL_BUILD:
+            ctx = FNC_TblGetCtx();
+            switch (ctx->row) {
+                case 0:
+                    strcpy((char *)result, "ID: 1, Name: Alice");
+                    *result_isnull = 0;
+                    ctx->row++;
+                    break;
+                case 1:
+                    strcpy((char *)result, "ID: 2, Name: Bob");
+                    *result_isnull = 0;
+                    ctx->row++;
+                    break;
+                case 2:
+                    strcpy((char *)result, "ID: 3, Name: Charlie");
+                    *result_isnull = 0;
+                    ctx->row++;
+                    break;
+                default:
+                    strcpy(sqlstate, "02000");  // End of data
+                    break;
+            }
+            break;
+
+        case TBL_FINI:
+            trace("In Fini");
+            break;
+
+        case TBL_END:
+            trace("In End");
+            break;
+    }
+}
